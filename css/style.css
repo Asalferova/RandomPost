@@ -1,0 +1,102 @@
+:root {
+    --background-color: #e0e0e0;
+    --post-background-color: #f0f0f0;
+    --box-shadow-color: rgba(0, 0, 0, 0.2);
+    --text-color: #111;
+    --button-color: #808080;
+    --button-hover-color: #606060;
+    --active-button-color: #161616;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--background-color);
+    margin: 0;
+    padding: 0;
+}
+
+header.header{
+    background-color: #606060;
+    color: #f0f0f0;
+    padding: 15px 25px;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.container {
+    max-width: 900px;
+    margin: 25px auto;
+    padding: 0 25px;
+    display: flex;
+    flex-direction: column;
+}
+
+.post {
+    background-color: var(--post-background-color);
+    border-radius: 10px;
+    box-shadow: 0 3px 6px var(--box-shadow-color);
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.post__image {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    max-height: 550px;
+}
+
+.post h3 {
+    font-size: 1.3em;
+    color: var(--text-color);
+    margin-bottom: 15px;
+}
+
+.post__like-btn {
+    background-color: var(--button-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 12px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.post__like-btn:hover {
+    background-color: var(--button-hover-color);
+}
+
+.post__like-btn.active {
+    background-color: var(--active-button-color);
+}
+
+.history-btn {
+    background-color: var(--button-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 12px;
+    cursor: pointer;
+    margin-bottom: 25px;
+}
+
+.history-posts {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-gap: 29px;
+}
+
+.history-posts__post {
+    padding-bottom: 6px;
+    max-height: 330px;
+    padding-bottom: 15px;
+    width: 200px;
+}
+
+.history-posts__post img {
+    height: 220px;
+    object-fit: cover;
+    width: 100%;
+    border-radius: 10px;
+}
+
