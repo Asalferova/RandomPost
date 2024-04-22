@@ -1,10 +1,10 @@
-# [Главная страница галереи](https:// "Ссылка на сайт")
+# [Главная страница галереи](https://asalferova.github.io/RandomPost/ "Ссылка на сайт")
 
 ## Описание проекта
 
 Этот проект представляет собой интерактивную галерею изображений, которая динамически загружает случайное изображение с помощью API Unsplash. Пользователи могут лайкать изображения и просматривать историю просмотренных постов, количество лайков сохраняется в localStorage и отображается на странице.
 
-   Технологии: HTML, CSS, JavaScript, Fetch API, Unsplash API.
+   Технологии: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" height="50px" width="50px">    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" height="50px" width="50px"/>    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" height="50px" width="50px"/> , Fetch API, Unsplash API.
 
    Основные функции:
 
