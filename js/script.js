@@ -4,13 +4,16 @@
 const container = document.querySelector('.container');
 const historyPostsEl = document.querySelector('.history-posts');
 const historyBtn = document.querySelector('.history-btn');
+const updateBtn = document.querySelector('.update-btn');
 
 // Токен для доступа к API Unsplash
 const token = 'i0L1B-zwQcvsPC4erXHqqMdMSUoE-Vfo-992hTU3bHI';
 
 // Запрашиваем изображение при загрузке страницы
 getImage();
-
+updateBtn.addEventListener('click', () => {
+    getImage();
+})
 // Функция для получения случайного изображения с Unsplash
 async function getImage(){
     try{
@@ -26,7 +29,7 @@ async function getImage(){
             likes: data.likes,
             isUserLikes: false
         }
-        container.insertAdjacentHTML('beforeend', createPost(post));
+        container.innerHTML = createPost(post);
         previousPosts.push(post);
         saveLikeToLocalStorage(previousPosts);
     } catch(error) {
@@ -63,12 +66,13 @@ document.body.addEventListener('click', (e) => {
     
             saveLikeToLocalStorage(previousPosts);
         }
+        
     }
 });
 
 // Функция для создания HTML-разметки поста
 function createPost(post){
-    return `<div class="post" data-post-id="${post.id}"><img src="${post.url}" class="post__image"></img ><h3 class="post__author">Автор: ${post.name}</h3><button class="${'post__like-btn'}"> ${post.likes}</button></div>`;
+    return `<div class="post" data-post-id="${post.id}"><img src="${post.url}" class="post__image"></img ><h3 class="post__author">Автор: ${post.name}</h3><button class="${post.isUserLikes ? 'post__like-btn active': 'post__like-btn'}"> ${post.likes}</button></div>`;
 };
 
 // Функция для создания HTML-разметки поста в истории
@@ -76,35 +80,44 @@ function createPostForHistory(post){
     return `<div class="post history-posts__post" data-post-id="${post.id}"><img src="${post.url}"></img><h3 class="post__author">${post.name}</h3><button class="${post.isUserLikes ? 'post__like-btn active': 'post__like-btn'}"> ${post.likes}</button></div>`;
 };
 
-// Функция для отображения истории постов
-function showHistory(posts){
-    posts.forEach(element => {
-     historyPostsEl.insertAdjacentHTML('beforeend', createPostForHistory(element));
-    });
- };
- 
- // Получаем данные из localStorage
- const storedPosts = localStorage.getItem('previousPosts');
- let previousPosts = [];
- if(storedPosts){
-     previousPosts = JSON.parse(storedPosts);
- } else {
-     previousPosts = [];
- };
- 
- // Функция для сохранения данных в localStorage
- function saveLikeToLocalStorage(previousPosts){
-   if(previousPosts.length > 6){
-     previousPosts.shift();
-     localStorage.setItem('previousPosts', JSON.stringify(previousPosts));
-   } 
- localStorage.setItem('previousPosts', JSON.stringify(previousPosts));
- };
- 
- // Обработчик клика по кнопке "history"
- historyBtn.addEventListener('click', () => {
-     showHistory(previousPosts);
- });
+let historyVisible = false; // Флаг для отслеживания видимости истории постов
+
+// Функция для отображения и скрытия истории постов
+function toggleHistory(posts){
+   if(historyVisible){
+      historyPostsEl.innerHTML = '';
+      historyBtn.textContent = 'Показать историю просмотров';
+   } else {
+      posts.forEach(element => {
+         historyPostsEl.insertAdjacentHTML('beforeend', createPostForHistory(element));
+      });
+      historyBtn.textContent = 'Скрыть историю просмотров';
+   }
+   historyVisible = !historyVisible;
+}
+
+// Получаем данные из localStorage
+const storedPosts = localStorage.getItem('previousPosts');
+let previousPosts = [];
+if(storedPosts){
+    previousPosts = JSON.parse(storedPosts);
+} else {
+    previousPosts = [];
+};
+
+// Функция для сохранения данных в localStorage
+function saveLikeToLocalStorage(previousPosts){
+  if(previousPosts.length > 6){
+    previousPosts.shift();
+    localStorage.setItem('previousPosts', JSON.stringify(previousPosts));
+  } 
+localStorage.setItem('previousPosts', JSON.stringify(previousPosts));
+};
+
+// Обработчик клика по кнопке "history"
+historyBtn.addEventListener('click', () => {
+    toggleHistory(previousPosts);
+});
 
 
 
